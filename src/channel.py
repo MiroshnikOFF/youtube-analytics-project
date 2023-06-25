@@ -14,6 +14,12 @@ class Channel:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
         self.__channel_id = channel_id
         self.__channel = Channel.youtube.channels().list(id=self.__channel_id, part='snippet, statistics').execute()
+        self.title = self.__channel["items"][0]["snippet"]['title']
+        self.description = self.__channel["items"][0]["snippet"]['description']
+        self.subscriberCount = self.__channel["items"][0]["statistics"]['subscriberCount']
+        self.video_count = self.__channel["items"][0]["statistics"]['videoCount']
+        self.viewCount = self.__channel["items"][0]["statistics"]['viewCount']
+        self.url = f"https://www.youtube.com/{self.__channel['items'][0]['snippet']['customUrl']}"
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
@@ -24,39 +30,6 @@ class Channel:
         """Возвращает id канала"""
         return self.__channel_id
 
-    # @channel_id.setter
-    # def channel_id(self, new_name):
-    #     self.__channel_id = new_name
-
-    @property
-    def title(self):
-        """Возвращает название канала"""
-        return self.__channel["items"][0]["snippet"]['title']
-
-    @property
-    def description(self):
-        """Возвращает описание канала"""
-        return self.__channel["items"][0]["snippet"]['description']
-
-    @property
-    def subscriberCount(self):
-        """Возвращает количество подписчиков"""
-        return self.__channel["items"][0]["statistics"]['subscriberCount']
-
-    @property
-    def video_count(self):
-        """Возвращает количество видео на канале"""
-        return self.__channel["items"][0]["statistics"]['videoCount']
-
-    @property
-    def viewCount(self):
-        """Возвращает количество просмотров"""
-        return self.__channel["items"][0]["statistics"]['viewCount']
-
-    @property
-    def url(self):
-        """Возвращает url канала"""
-        return f"https://www.youtube.com/{self.__channel['items'][0]['snippet']['customUrl']}"
 
     @classmethod
     def get_service(cls):
