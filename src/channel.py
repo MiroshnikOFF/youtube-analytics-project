@@ -21,6 +21,7 @@ class Channel:
 
     @property
     def channel_id(self):
+        """Возвращает id канала"""
         return self.__channel_id
 
     # @channel_id.setter
@@ -29,33 +30,41 @@ class Channel:
 
     @property
     def title(self):
+        """Возвращает название канала"""
         return self.__channel["items"][0]["snippet"]['title']
 
     @property
     def description(self):
+        """Возвращает описание канала"""
         return self.__channel["items"][0]["snippet"]['description']
 
     @property
     def subscriberCount(self):
+        """Возвращает количество подписчиков"""
         return self.__channel["items"][0]["statistics"]['subscriberCount']
 
     @property
     def video_count(self):
+        """Возвращает количество видео на канале"""
         return self.__channel["items"][0]["statistics"]['videoCount']
 
     @property
     def viewCount(self):
+        """Возвращает количество просмотров"""
         return self.__channel["items"][0]["statistics"]['viewCount']
 
     @property
     def url(self):
+        """Возвращает url канала"""
         return f"https://www.youtube.com/{self.__channel['items'][0]['snippet']['customUrl']}"
 
     @classmethod
     def get_service(cls):
+        """Возвращает объект для работы с YouTube API"""
         return Channel.youtube
 
     def to_json(self, file_name):
+        """Сохраняет в файл значения атрибутов экземпляра `Channel`"""
         moscowpython = {
            "channel_id": self.channel_id,
            "title": self.title,
