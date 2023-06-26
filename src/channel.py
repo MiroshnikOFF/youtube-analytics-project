@@ -66,35 +66,35 @@ class Channel:
         Сравнивает количество подписчиков двух каналов. Если в первом больше
         чем во втором, возвращает True, иначе False
         """
-        return self.subscriberCount > other.subscriberCount
+        return int(self.subscriberCount) > int(other.subscriberCount)
 
     def __ge__(self, other):
         """
         Сравнивает количество подписчиков двух каналов. Если в первом больше либо равно
         чем во втором, возвращает True, иначе False
         """
-        return self.subscriberCount >= other.subscriberCount
+        return int(self.subscriberCount) >= int(other.subscriberCount)
 
     def __lt__(self, other):
         """
         Сравнивает количество подписчиков двух каналов. Если в первом меньше
         чем во втором, возвращает True, иначе False
         """
-        return self.subscriberCount < other.subscriberCount
+        return int(self.subscriberCount) < int(other.subscriberCount)
 
     def __le__(self, other):
         """
         Сравнивает количество подписчиков двух каналов. Если в первом меньше либо равно
         чем во втором, возвращает True, иначе False
         """
-        return self.subscriberCount <= other.subscriberCount
+        return int(self.subscriberCount) <= int(other.subscriberCount)
 
     def __eq__(self, other):
         """
         Сравнивает количества подписчиков двух каналов.
         Если они равны, возвращает True, иначе False
         """
-        return self.subscriberCount == other.subscriberCount
+        return int(self.subscriberCount) == int(other.subscriberCount)
 
 
 
