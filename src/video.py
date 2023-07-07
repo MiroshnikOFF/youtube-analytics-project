@@ -4,7 +4,7 @@ from src.channel import Channel
 class Video:
     """Класс для видео ютуб"""
 
-    #Объект для работы с YouTube API
+    # Объект для работы с YouTube API
     youtube = Channel.get_service()
 
     def __init__(self, video_id):
@@ -25,6 +25,7 @@ class Video:
 
 class PLVideo(Video):
     """Класс для плейлиста видео ютуб, дочерний от Video"""
+
     def __init__(self, video_id, pl_id):
         """Расширяет функционал класса Video добавлением id плейлиста"""
         super().__init__(video_id)
