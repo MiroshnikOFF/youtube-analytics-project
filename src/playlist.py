@@ -3,6 +3,7 @@ from datetime import timedelta
 
 
 class PlayList:
+    """Класс для плейлистов ютуб"""
 
     # Объект для работы с YouTube API
     youtube = Channel.get_service()
@@ -28,14 +29,19 @@ class PlayList:
 
     @property
     def total_duration(self):
+        """Возвращает объект класса `datetime.timedelta` с суммарной длительностью плейлиста"""
+
+        # Получение статистики по всем видео плейлиста в виде списка
         video_response = PlayList.youtube.videos().list(part='contentDetails,statistics',
-                                                        id=','.join(self.__video_ids)
-                                                        ).execute()
+                                                        id=','.join(self.__video_ids)).execute()
         total_duration = timedelta()
 
         for video in video_response['items']:
+            # Получение длительности каждого видео из плейлиста в виде строки
             duration = video['contentDetails']['duration']
+            # Очистка строки от лишних символов
             dur_list = duration.replace("PT", '').strip("S").split("M")
+            # Подготовка и преобразование строки в объект класса `datetime.timedelta`
             if dur_list[0].isdigit():
                 minutes = int(dur_list[0])
             else:
@@ -49,16 +55,21 @@ class PlayList:
         return total_duration
 
     def show_best_video(self):
+        """Возвращает ссылку на самое популярное видео из плейлиста по количеству лайков"""
         videos_like_url_list = []
+        # Итерирование по списку id каждого видео из плейлисте и получение по id статистики соответствующего видео
         for video_id in self.__video_ids:
             items_index = 0
             video_response = PlayList.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
                                                             id=video_id).execute()
+            # Получение количества лайков и url видео
             like = int(video_response['items'][items_index]['statistics']['likeCount'])
             url = f"https://youtu.be/{video_response['items'][items_index]['id']}"
+            # Добавление словаря с количества лайков и url видео в список
             video_like_url = {'like': like, 'url': url}
             videos_like_url_list.append(video_like_url)
             items_index += 1
+        # Вычисление видео с наибольшим количеством лайков из списка
         best_video = {'like': 0}
         for video in videos_like_url_list:
             if video['like'] > best_video['like']:
