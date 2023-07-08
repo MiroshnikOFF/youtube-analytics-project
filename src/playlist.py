@@ -65,7 +65,7 @@ class PlayList:
             # Получение количества лайков и url видео
             like = int(video_response['items'][items_index]['statistics']['likeCount'])
             url = f"https://youtu.be/{video_response['items'][items_index]['id']}"
-            # Добавление словаря с количества лайков и url видео в список
+            # Добавление словаря с количеством лайков и url видео в список
             video_like_url = {'like': like, 'url': url}
             videos_like_url_list.append(video_like_url)
             items_index += 1
